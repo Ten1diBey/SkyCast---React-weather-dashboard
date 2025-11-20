@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const WeatherContext = createContext();
-
 export const WeatherProvider = ({ children }) => {
   // Завантажуємо обране з LocalStorage при старті
   const [favorites, setFavorites] = useState(() => {
@@ -37,8 +37,6 @@ export const WeatherProvider = ({ children }) => {
       return newHistory.slice(0, 5);
     });
   };
-
-  // ОСЬ ЦІЄЇ ЧАСТИНИ У ВАС НЕ ВИСТАЧАЛО 👇
   return (
     <WeatherContext.Provider
       value={{
