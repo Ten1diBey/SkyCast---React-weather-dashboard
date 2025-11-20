@@ -2,27 +2,34 @@ import { useState, useContext } from 'react';
 import { fetchWeather, fetchForecast } from '../services/weatherApi';
 import { WeatherContext } from '../context/WeatherContext';
 import SearchBar from '../components/SearchBar';
-import CurrentWeather from '../components/CurrentWeather'; 
-import Forecast from '../components/Forecast';             
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import CurrentWeather from '../components/CurrentWeather';
+import Forecast from '../components/Forecast';
+import { FaHeart, FaRegHeart, FaHistory } from 'react-icons/fa';
 
 function Dashboard() {
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState(null); // Стан для прогнозу
+  const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
-  const { addToHistory, addToFavorites, favorites, removeFromFavorites } = useContext(WeatherContext);
+  // Дістаємо searchHistory з контексту
+  const { 
+    addToHistory, 
+    searchHistory,
+    addToFavorites, 
+    favorites, 
+    removeFromFavorites 
+  } = useContext(WeatherContext);
 
   const handleSearch = async (city) => {
     setLoading(true);
     setError(null);
     try {
       const weatherData = await fetchWeather(city);
-      const forecastData = await fetchForecast(city); // Отримуємо дані
+      const forecastData = await fetchForecast(city);
       
       setWeather(weatherData);
-      setForecast(forecastData); // Зберігаємо в стан
+      setForecast(forecastData);
       addToHistory(weatherData.name);
       
     } catch (err) {
@@ -34,7 +41,6 @@ function Dashboard() {
     }
   };
 
-  // Перевірка, чи місто в обраному
   const isFavorite = weather && favorites.some(fav => fav.name === weather.name);
 
   const toggleFavorite = () => {
@@ -50,6 +56,24 @@ function Dashboard() {
       <div className="search-section">
         <h1>Прогноз погоди 🌤️</h1>
         <SearchBar onSearch={handleSearch} />
+
+        {/* --- БЛОК ІСТОРІЇ --- */}
+        {searchHistory.length > 0 && (
+          <div className="history-container">
+            <p className="history-title"><FaHistory /> Нещодавні:</p>
+            <div className="history-list">
+              {searchHistory.map((city, index) => (
+                <button 
+                  key={index} 
+                  onClick={() => handleSearch(city)} 
+                  className="history-chip"
+                >
+                  {city}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {loading && <div className="loading-spinner">Завантаження...</div>}
@@ -65,7 +89,6 @@ function Dashboard() {
           </div>
           
           <CurrentWeather data={weather} />
-
           {forecast && <Forecast data={forecast} />}
         </div>
       )}

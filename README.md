@@ -1,16 +1,45 @@
-# React + Vite
+# Фінальний проєкт: Weather Dashboard (SkyCast)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Опис завдання
+Цей односторінковий застосунок (SPA) дозволяє користувачам переглядати погоду в будь-якому місті світу, отримувати прогноз на 5 днів та зберігати улюблені міста. Проєкт демонструє роботу із зовнішнім API, глобальним станом та маршрутизацією.
 
-Currently, two official plugins are available:
+**Тема:** Weather Dashboard.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⚙️ Технології
+* **React** (Vite)
+* **React Router** (навігація між сторінками)
+* **Context API** (глобальний стан для обраного та історії)
+* **OpenWeatherMap API** (дані про погоду)
+* **LocalStorage** (збереження даних після перезавантаження)
+* **CSS Modules / Standard CSS** (стилізація)
 
-## React Compiler
+## 📂 Структура проєкту
+* **`pages/Dashboard.jsx`**: Головна сторінка з пошуком і віджетами погоди.
+* **`pages/Favorites.jsx`**: Сторінка зі списком збережених міст.
+* **`components/`**: Компоненти інтерфейсу (Navbar, SearchBar, CurrentWeather, Forecast).
+* **`context/WeatherContext.jsx`**: Логіка керування станом (додавання/видалення з обраного).
+* **`services/weatherApi.js`**: Функції для запитів до API.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Інструкція із запуску
 
-## Expanding the ESLint configuration
+1.  **Клонуйте репозиторій:**
+    ```bash
+    git clone [https://github.com/Ten1diBey/SkyCast---React-weather-dashboard.git](https://github.com/Ten1diBey/SkyCast---React-weather-dashboard.git)
+    ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2.  **Встановіть залежності:**
+    ```bash
+    npm install
+    ```
+
+3.  **Налаштуйте API ключ:**
+    * Відкрийте файл `src/services/weatherApi.js`.
+    * Вставте свій ключ OpenWeatherMap у змінну `API_KEY`.
+
+4.  **Запустіть сервер розробки:**
+    ```bash
+    npm run dev
+    ```
+
+---
+*Роботу виконав студент групи [ІПЗ-24-2] [Бархатов-М.О.]*
